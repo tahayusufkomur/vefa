@@ -1,0 +1,104 @@
+<html>
+<head>
+
+    <style type="text/css">
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+        html, body{
+          margin: 0;
+          color: white;
+          height: 100%;
+        }
+        div#vefa
+        {
+          display: flex;
+          flex-direction: column;
+          background-color: red; /* <-- painful color for your eyes ! */
+          height: 100%; /* <-- if you remove this line, the parent div has no limited height */
+        }
+        div#main /* parent div for sidebar and content */
+        {
+          display: flex;
+          width: 100%;
+          height: 90%;
+        }
+        div#header {
+          background-color: 	#031d42;
+          height: 5%;
+          font-size: 20px;
+          font-weight: bold;
+          font-palette: light;
+          flex: 1;
+        }
+        div#footer {
+          background-color: #031d42;
+          height: 5%;
+          font-size: 20px;
+          font-weight: bold;
+          font-palette: light;
+          flex: 1;
+        }
+        div#sidebar {
+          background-color: #031d42;
+          width: 10%;
+          overflow-y: auto;
+        }
+        div#content {
+          background-color: #99CDCD;
+          width: 90%;
+          overflow-y: auto;
+          font-size: 20px;
+          font-weight: bold;
+          font-palette: light;
+        }
+        div.fixed_size_element {
+          background-color: #031d42;
+          display: block;
+          height: 50px;
+          margin: 5px;
+          font-size: 20px;
+          font-weight: bold;
+          font-palette: light;
+          flex: 0.9;
+        }
+    </style>
+
+    <title>
+        {% block title %} Vefa {% endblock %}
+    </title>
+</head>
+<body>
+<div id="vefa">
+    <div id="header">
+        <div class="fixed_size_element">VEFA</div>
+            {% if user.is_authenticated %}
+                <a class="nav-item mr-3 nav-link p-3" href="{% url 'logout' %}"
+                style="position: absolute; right: 10px; top: 5px;">Hi {{ user.username }}! Logout</a>
+            {% endif %}
+    </div>
+    <div id="main">
+        <div id="sidebar">
+
+            <div class="fixed_size_element"></div>
+            <div class="fixed_size_element">
+                <a href="/home">Home</a>
+            </div>
+            <div class="fixed_size_element">
+                <a href="/work_calculator">Work Calculator</a>
+            </div>
+{#            <div class="fixed_size_element">#}
+{#                <a href="/tour_calculator">Tour Calculator</a>#}
+{#            </div>#}
+        </div>
+        <div id="content">
+            {% block content %}
+                <p>Vefa Flege hesaplama araçları sitesine hoşgeldiniz.</p>
+            {% endblock content %}
+        </div>
+    </div>
+    <div id="footer"></div>
+</div>
+</body>
+</html>
